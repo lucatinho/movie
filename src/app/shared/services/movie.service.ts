@@ -4,14 +4,15 @@ import {ResponseApi} from "../../model/response-api.model";
 import {Movie} from "../../model/movie.model";
 import {catchError, map, Observable, retry} from "rxjs";
 import {HandleObservableService} from "../utils/handle-observable-service.utils";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService extends HandleObservableService {
 
-  private _baseUrlApi = 'https://api.themoviedb.org/3';
-  private _apiKey = '0878f33a15c66b74f481f89b605f088b';
+  private _baseUrlApi = environment.urlApi;
+  private _apiKey = environment.apiKey;
   language: string = 'pt-BR';
 
   constructor(private http: HttpClient) {
