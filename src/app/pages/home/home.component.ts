@@ -16,6 +16,7 @@ import {
 import {Movie} from "../../model/movie.model";
 import {AutoUnsubscribe} from "../../shared/utils/auto-unsubscribe.utils";
 import {ResponseApi} from "../../model/response-api.model";
+import {GenreType} from "../../enum/genre.enum";
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ export class HomeComponent extends AutoUnsubscribe implements OnInit {
   isLoading: boolean = false;
   isSeeking: boolean = false;
   userImage: string = '';
+  genreType = GenreType;
 
   constructor(private _formBuilder: FormBuilder, private _movieService: MovieService) {
     super();
@@ -47,8 +49,32 @@ export class HomeComponent extends AutoUnsubscribe implements OnInit {
     });
   }
 
+
+  movieSearchGenre(genre: GenreType) {
+    this.isLoading = true;
+
+    this._movieService.searchMovieByGenre(genre).pipe(
+      switchMap((movies: ResponseApi) => {
+        if (movies.results.length > 0) {
+          return this.joinImages(movies);
+        }
+        return of([]);
+      }),
+      this.unsubsribeOnDestroy
+    )
+      .subscribe(
+        (response: Movie[]) => {
+          this.movies = response;
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error(error);
+          this.isLoading = false;
+        }
+      );
+  }
+
   private movieSearch() {
-    // this.searchForm.controls['search'].patchValue('marvel');
     this.filteredOptions$ = this.searchForm.get('search')!.valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(1500),

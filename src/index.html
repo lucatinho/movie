@@ -9,8 +9,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .waviy {
+      font-weight: bold;
+      position: relative;
+    gradient(transparent, rgba(0, 0, 0, .2));
+      font-size: 60px;
+    }
+
+    .waviy span {
+      font-size: 0.5em;
+      font-weight: bold;
+      font-family: 'Arial', cursive;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      animation: waviy 2s infinite;
+      animation-delay: calc(.2s * var(--i));
+      color: #c9c9c9;
+    }
+
+    @keyframes waviy {
+      0%, 40%, 100% {
+        transform: translateY(0)
+      }
+      20% {
+        transform: translateY(-20px)
+      }
+    }
+
+    .loader-container {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body class="mat-typography">
-  <app-root></app-root>
+<app-root>
+  <div class="loader-container">
+    <div class="waviy">
+      <span style="--i:1">M</span>
+      <span style="--i:2">O</span>
+      <span style="--i:3">V</span>
+      <span style="--i:4">I</span>
+      <span style="--i:5">E</span>
+    </div>
+  </div>
+</app-root>
 </body>
 </html>

@@ -5,6 +5,7 @@ import {Movie} from "../../model/movie.model";
 import {catchError, map, Observable, retry} from "rxjs";
 import {HandleObservableService} from "../utils/handle-observable-service.utils";
 import {environment} from "../../../environments/environment";
+import {GenreType} from "../../enum/genre.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,15 @@ export class MovieService extends HandleObservableService {
       map((response: ResponseApi) => {
         return response.results.filter((item) => item.poster_path !== null);
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  searchMovieByGenre(genre: GenreType, page: number = 1): Observable<ResponseApi> {
+    const endpointUrl = `${this._baseUrlApi}/discover/movie?api_key=${this._apiKey}&language=${this.language}&with_genres=${genre}&page=${page}`;
+    return this.http.get<ResponseApi>(endpointUrl).pipe(
+      retry(2),
+      map(this.extractResponseData),
       catchError(this.handleError)
     );
   }

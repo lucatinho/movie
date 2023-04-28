@@ -1,27 +1,5 @@
 <section class="container">
-  <div class="header" fxLayout="row">
-    <div
-      class="header__logo"
-      fxFlex="25"
-      fxFlex.md="25"
-      fxFlex.sm="25"
-      fxFlex.xs="25"
-    >
-      CINEMA
-    </div>
-    <div
-      class="header__user"
-      fxFlex="15"
-      fxFlex.md="25"
-      fxFlex.sm="25"
-      fxFlex.xs="25"
-    >
-      <div class="header__user-circle">
-        <img [src]="userImage" alt="Profile"/>
-      </div>
-    </div>
-  </div>
-
+  <div class="close"><a (click)="goBack()" style="cursor: pointer">X</a></div>
 
   <div class="movie__container">
     <img class="movie__img" [src]="baseUrlImage + movie.poster_path" alt="Imagem do Filme">
