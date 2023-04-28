@@ -1,5 +1,6 @@
 export class RouteUtils {
   static readonly MOVIE = {
-    HOME: ''
+    HOME: '',
+    MOVIE_DETAILS: 'movie-details/:idMovie'
   }
 }

@@ -10,6 +10,7 @@ export class Movie {
   imdb_id: string;
   backdrop_path: string;
   budget: number;
+  adult: boolean;
   title: string;
   genres: {
     id: number;

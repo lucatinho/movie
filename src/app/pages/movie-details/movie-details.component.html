@@ -1,0 +1,41 @@
+<section class="container">
+  <div class="header" fxLayout="row">
+    <div
+      class="header__logo"
+      fxFlex="25"
+      fxFlex.md="25"
+      fxFlex.sm="25"
+      fxFlex.xs="25"
+    >
+      CINEMA
+    </div>
+    <div
+      class="header__user"
+      fxFlex="15"
+      fxFlex.md="25"
+      fxFlex.sm="25"
+      fxFlex.xs="25"
+    >
+      <div class="header__user-circle">
+        <img [src]="userImage" alt="Profile"/>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="movie__container">
+    <img class="movie__img" [src]="baseUrlImage + movie.poster_path" alt="Imagem do Filme">
+    <div class="movie__details">
+      <h1>{{movie.title}}</h1>
+      <p><strong>Adulto (+18):</strong> {{movie.adult ? 'Sim' : 'Não'}}</p>
+      <p><strong>Gênero:</strong>
+        <a
+          *ngFor="let genre of movie.genres;let index = index">
+          {{genre.name}}{{ index === movie.genres.length - 1 ? '.' : ','}}
+        </a>
+      </p>
+      <p><strong>Ano:</strong> {{movie.release_date | date:'dd-MM-yyyy'}}</p>
+      <p><strong>Sinopse:</strong> {{movie.overview}}</p>
+    </div>
+  </div>
+</section>

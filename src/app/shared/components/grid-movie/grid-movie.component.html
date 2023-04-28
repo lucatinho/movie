@@ -7,7 +7,7 @@
     fxFlex.xs="100"
     fxLayout="column"
     *ngFor="let movie of moviesList; let index = index"
-  >
+    (click)="datails(movie)">
     <img
       mat-card-image
       class="movie__content-image"

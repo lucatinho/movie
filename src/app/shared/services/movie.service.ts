@@ -21,18 +21,25 @@ export class MovieService extends HandleObservableService {
 
   getPopularMovies(page: number = 1): Observable<ResponseApi> {
     const endpointUrl = `${this._baseUrlApi}/movie/popular?api_key=${this._apiKey}&language=${this.language}&page=${page}`;
-    return this.http
-      .get<ResponseApi>(endpointUrl)
-      .pipe(
-        retry(2),
-        map(this.extractResponseData),
-        catchError(this.handleError)
-      );
+    return this.http.get<ResponseApi>(endpointUrl).pipe(
+      retry(2),
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
   }
 
   getImageById(movie_id: number): Observable<ResponseApi> {
     const endpointUrl = `${this._baseUrlApi}/movie/${movie_id}/images?api_key=${this._apiKey}`;
     return this.http.get<ResponseApi>(endpointUrl).pipe(
+      retry(2),
+      map((data) => data),
+      catchError(this.handleError)
+    );
+  }
+
+  getMovieById(id: number): Observable<Movie> {
+    const endpointUrl = `${this._baseUrlApi}/movie/${id}?api_key=${this._apiKey}&language=${this.language}`;
+    return this.http.get<Movie>(endpointUrl).pipe(
       retry(2),
       map((data) => data),
       catchError(this.handleError)
